@@ -1,0 +1,101 @@
+# ParentLaw — fabrika künyesi
+# Bir uygulamayı fabrikaya sokan TEK dosya. Boru hattının her adımı buradan okur:
+# enstrümantasyon, mağaza gönderimi, ASO, kreatif, reklam, kota kapıları.
+# Yeni uygulama eklemek = bu dosyanın bir kopyasını doldurmak.
+
+id: parentlaw
+name: ParentLaw (Co-Parent)
+status: soak                      # idea|build|soak|spark|scale|harvest|killed
+repo: ~/Projects/ParentLaw_Mobile
+bundle_id: com.thinkedgeapps.parentLaw
+
+market:
+  primary: US
+  languages: [en-US]
+  category: co-parenting
+  # Kreatif ve ASO istihbaratı bu listeden beslenir.
+  competitors:
+    - OurFamilyWizard
+    - TalkingParents
+    - AppClose
+    - Alimentor 2
+    - Our Days Co-Parenting Calendar
+  # Kategorinin çekirdek aramaları — ASO ölçümü bunlarda sıralama arar.
+  core_searches:
+    - co-parenting
+    - custody tracker
+    - parenting plan
+    - child custody
+    - divorced parents app
+
+store:
+  asc_app_id: "6785801896"
+  vendor_number: "93695706"
+  play_package: com.thinkedgeapps.parentLaw
+  team_id: "97SGGCW829"
+  # İmzalama varlıkları — fabrika bunları üretir ve burada tutar.
+  ios_cert_id: L7PC35KMK6
+  ios_profile: ParentLaw AppStore Fabrika
+
+ads:
+  meta_account_id: "1468315881700303"   # act_ oneki API cagrisinda eklenir
+  # system user token: /root/.meta.env (META_ACCESS_TOKEN) — geldiginde kurulacak
+
+backend:
+  api: https://parentlaw-api.rixe.ai
+  host: 157.230.191.204
+  # Gelir gerçeğinin kaynağı: mağaza-doğrulamalı kendi DB'miz.
+  revenue_source: backend_db
+
+analytics:
+  firebase_project: coparent-9ca78
+  gcp_project_number: "402407546679"      # Play/BigQuery hatalarında bu numara geçer
+  service_account: /etc/goparent/play-service-account.json
+  # Ölçüm altyapısının doğrulanan durumu — `factory status` gerçeğe bakarak günceller,
+  # buradaki değerler yalnız hangi kaynakların HEDEFLENDİĞİNİ söyler.
+  sources: [bigquery_analytics, play_reporting, play_reviews]
+  # Zorunlu event sözleşmesi — doctor bunları kodda arar.
+  required_events:
+    - onboarding_started
+    - onboarding_completed
+    - paywall_view
+    - trial_start
+    - purchase_completed
+  push: onesignal
+
+pricing:
+  model: subscription
+  # Bu kategori mecburiyet kategorisi: haftalık plan YOK, tam dolar fiyat.
+  plans:
+    family:   {monthly: 8,  yearly: 79}
+    evidence: {monthly: 19, yearly: 189}
+  trial_days: 7
+
+# --- KOTA VE KAPILAR ----------------------------------------------------------
+# Fabrikanın frenleri. Motor bunları her gün değerlendirir; tavan dolduğunda
+# ve kapı açılmadığında DURDURMA önerisi üretir (Faz C'de otomatik uygular).
+budget:
+  daily_cap_usd: 50               # platform tarafında da hard cap tanımlı olmalı
+  spark_total_cap_usd: 2500       # bu tavan dolar ve kıvılcım yoksa → KILL
+  scale_step_pct: 25              # kapı açıksa haftalık bütçe artışı
+
+gates:
+  # SOAK → SPARK: ürün sağlığı. Reklam parası harcamadan önce aranır.
+  soak:
+    crash_free_rate: 0.995
+    onboarding_completion: 0.60
+    paywall_view_rate: 0.70
+  # SPARK → SCALE: ekonomi. En az biri "güçlü" olmadan bütçe artmaz.
+  spark:
+    trial_start_rate: 0.05        # install → trial
+    trial_to_paid: 0.35
+    d1_retention: 0.25
+    ltv_cac: 1.0
+  scale:
+    ltv_cac: 1.2                  # iki hafta üst üste
+    consecutive_weeks: 2
+
+# Minimum örneklem — bunun altında hiçbir kapı "kapalı" sayılmaz (gürültü koruması).
+min_sample:
+  installs: 100
+  trials: 20

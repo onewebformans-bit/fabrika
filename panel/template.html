@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>$TITLE</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0e1116; --surface:#161b23; --surface2:#1c2330; --border:#2a3342;
+    --ink:#e8edf4; --ink2:#9aa7b8; --ink3:#67748a;
+    --accent:#5b9dff; --good:#3fbf7f; --warn:#e8b23f; --bad:#e06060;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"SF Pro Text",Segoe UI,Roboto,sans-serif;padding:28px 20px 60px}
+  .wrap{max-width:1100px;margin:0 auto}
+  header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+  header h1{font-size:24px;letter-spacing:-.02em}
+  header .muted{font-size:13px}
+  .muted{color:var(--ink3)}
+  .badge{background:var(--surface2);border:1px solid var(--border);color:var(--accent);
+    font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px}
+  .app{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:26px}
+  .app-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .app-head h2{font-size:19px}
+  .app-head .muted{margin-left:auto;font-size:12px}
+  .lifecycle{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+  .stepf{display:inline}
+  .step{font-size:11.5px;color:var(--ink3);background:var(--surface2);border:1px solid var(--border);
+    padding:4px 12px;border-radius:99px;font-family:inherit;margin:0;cursor:pointer;
+    transition:.12s}
+  .step:hover{color:var(--accent);border-color:var(--accent);filter:none}
+  .step.done{color:var(--ink2);border-color:var(--border)}
+  .step.done::before{content:"✓ ";color:var(--good)}
+  .step.now{color:var(--accent);border-color:var(--accent);font-weight:600}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+  .card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .card .label{font-size:12px;color:var(--ink2);margin-bottom:4px}
+  .card .value{font-size:26px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .delta{font-size:13px;font-weight:600;vertical-align:3px;margin-left:2px}
+  .delta.up{color:var(--good)} .delta.flat{color:var(--ink3)}
+  .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:18px}
+  .chart{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px}
+  .chart h3{font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:8px}
+  .chart canvas{max-height:170px}
+  .two-col{display:grid;grid-template-columns:1fr 1.2fr;gap:22px}
+  @media(max-width:760px){.two-col{grid-template-columns:1fr}}
+  .two-col h3{font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:10px}
+  .comments{list-style:none}
+  .comments li{display:flex;gap:9px;align-items:flex-start;font-size:14px;margin-bottom:9px;color:var(--ink)}
+  .comments .dot{flex:0 0 8px;height:8px;border-radius:99px;margin-top:7px}
+  .c-good .dot{background:var(--good)} .c-info .dot{background:var(--accent)} .c-warn .dot{background:var(--warn)}
+  table.spark{width:100%;border-collapse:collapse;font-size:13.5px}
+  table.spark th{text-align:left;color:var(--ink3);font-size:12px;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border)}
+  table.spark td{padding:7px 8px;border-bottom:1px solid var(--border)}
+  table.spark td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.spark td.muted{font-size:12px}
+  .modules{margin-top:22px;border-top:1px solid var(--border);padding-top:18px}
+  ul.checks{list-style:none}
+  ul.checks li{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;margin-bottom:7px;line-height:1.4}
+  ul.checks .dot{flex:0 0 8px;height:8px;border-radius:99px;margin-top:6px;background:var(--ink3)}
+  ul.checks li.ok .dot{background:var(--good)}
+  ul.checks li.todo .dot{background:var(--warn)}
+  ul.checks li.todo{color:var(--ink2)}
+  .gate{border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.5;
+    border:1px solid var(--border);background:var(--surface2)}
+  .gate b{display:block;font-size:15px;margin-bottom:4px}
+  .gate.g-good b{color:var(--good)} .gate.g-warn b{color:var(--warn)}
+  .gate.g-bad b{color:var(--bad)} .gate.g-info b{color:var(--accent)}
+  .gate div{color:var(--ink2)}
+  /* sekmeler: her alan kendi kategorisinde */
+  .tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--border);
+    margin:4px 0 18px;padding-bottom:0}
+  .tab{background:none;border:0;border-bottom:2px solid transparent;color:var(--ink3);
+    font:inherit;font-size:13.5px;font-weight:600;padding:9px 14px;cursor:pointer;
+    border-radius:8px 8px 0 0;margin:0}
+  .tab:hover{color:var(--ink2);background:var(--surface2)}
+  .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+  .tab i{font-style:normal;font-size:11px;background:var(--surface2);color:var(--ink2);
+    padding:1px 7px;border-radius:99px;margin-left:5px}
+  .tab.active i{background:var(--accent);color:#08101c}
+  .panel{display:none}
+  .panel.show{display:block}
+  .panel > h3{font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:10px}
+  /* panelden girdi: intake formu ve mesaj kutusu */
+  .fld{display:block;margin-bottom:11px}
+  .fld .fl{display:block;font-size:12.5px;color:var(--ink2);margin-bottom:4px}
+  .fld.ok .fl::before{content:"✓ ";color:var(--good)}
+  .fld input,.fld textarea,form textarea{width:100%;background:var(--surface2);
+    border:1px solid var(--border);border-radius:9px;padding:9px 11px;
+    color:var(--ink);font:inherit;font-size:13.5px}
+  .fld input:focus,form textarea:focus{outline:none;border-color:var(--accent)}
+  .fld .fh{display:block;font-size:11.5px;color:var(--ink3);margin-top:4px;line-height:1.4}
+  form button{margin-top:8px;background:var(--accent);color:#08101c;border:0;
+    border-radius:99px;padding:9px 20px;font:inherit;font-weight:700;font-size:13px;cursor:pointer}
+  form button:hover{filter:brightness(1.08)}
+  form textarea{margin-bottom:2px;resize:vertical}
+  ul.msgs{list-style:none;margin-top:12px}
+  ul.msgs li{background:var(--surface2);border:1px solid var(--border);border-radius:10px;
+    padding:9px 11px;margin-bottom:7px;font-size:13px;line-height:1.45}
+  ul.msgs .mw{display:inline-block;font-weight:700;font-size:11px;color:var(--accent);
+    margin-right:7px;text-transform:uppercase;letter-spacing:.04em}
+  ul.msgs .m-brain .mw{color:var(--good)}
+  ul.msgs .mb{color:var(--ink)}
+  ul.msgs .muted{display:block;font-size:11px;margin-top:3px}
+  /* hızlı aksiyonlar: tek tıkla iş başlat */
+  .quick{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+  .qa{display:inline}
+  .qa button{margin:0;background:var(--surface2);color:var(--ink2);
+    border:1px solid var(--border);font-weight:600;font-size:12.5px;padding:7px 13px}
+  .qa button:hover{border-color:var(--accent);color:var(--accent);filter:none}
+  .refresh{margin-left:auto}
+  .mdone{display:inline;float:right;margin-top:-22px}
+  .mdone button{margin:0;background:transparent;color:var(--ink3);border:1px solid var(--border);
+    font-size:11px;padding:3px 10px;font-weight:600}
+  .mdone button:hover{color:var(--good);border-color:var(--good);filter:none}
+  .budget .brow{display:flex;gap:14px;flex-wrap:wrap}
+  .budget .fld{flex:1;min-width:180px}
+  /* giriş sayfası: uygulama ızgarası */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:26px}
+  .appcard{display:block;text-decoration:none;color:inherit;background:var(--surface);
+    border:1px solid var(--border);border-radius:16px;padding:20px;transition:.15s}
+  .appcard:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .ac-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:14px}
+  .ac-head h2{font-size:17px;letter-spacing:-.01em}
+  .chip{font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;
+    border:1px solid var(--border);background:var(--surface2)}
+  .chip.c-good{color:var(--good)} .chip.c-warn{color:var(--warn)}
+  .chip.c-bad{color:var(--bad)} .chip.c-info{color:var(--accent)}
+  .ac-nums{display:flex;gap:22px;margin-bottom:14px}
+  .ac-nums b{display:block;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+  .ac-nums span{font-size:11.5px;color:var(--ink3)}
+  .ac-prog{margin-bottom:12px}
+  .ac-prog .bar{height:5px;background:var(--surface2);border-radius:99px;overflow:hidden;margin-bottom:6px}
+  .ac-prog .bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+  .ac-prog .muted{font-size:11.5px}
+  .ac-note{font-size:13px;color:var(--ink2);line-height:1.45;min-height:38px}
+  .ac-go{margin-top:12px;font-size:12.5px;font-weight:600;color:var(--accent)}
+  .back{color:var(--ink3);text-decoration:none;font-size:15px;font-weight:500}
+  .back:hover{color:var(--accent)}
+  .todos{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px}
+  .todos h2{font-size:16px;margin-bottom:12px}
+  .todos ol{padding-left:20px}
+  .todos li{margin-bottom:7px;color:var(--ink2);font-size:14px}
+  footer{margin-top:26px;font-size:12px;color:var(--ink3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  $BODY
+</div>
+<script>
+// Sekme geçişi. Kaydetme sonrası dönüşte (#kurulum / #mesaj) doğru sekme açılır,
+// böylece form gönderdikten sonra kullanıcı yazdığı yere geri düşer.
+document.querySelectorAll('.tabs').forEach(nav => {
+  const sec = nav.closest('.app');
+  const show = key => {
+    nav.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.t === key));
+    sec.querySelectorAll('.panel').forEach(p => p.classList.toggle('show', p.dataset.p === key));
+  };
+  nav.addEventListener('click', e => {
+    const b = e.target.closest('.tab');
+    if (b) { show(b.dataset.t); history.replaceState(null, '', '#' + b.dataset.t); }
+  });
+  const h = location.hash.slice(1);
+  if (h === 'intake' || h === 'kurulum') show('kurulum');
+  else if (h === 'mesaj' || h === 'istek') show('istek');
+  else if (h && sec.querySelector(`.panel[data-p="${h}"]`)) show(h);
+});
+
+const DATA = $DATA;
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+Chart.defaults.color = css('--ink3');
+Chart.defaults.borderColor = css('--border');
+Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+// Veri yoksa grafik kartını tamamen gizle: boş kutu gürültüdür, sayfayı uzatır.
+const empty = c => { const card = c.closest('.chart'); if (card) card.remove(); else c.remove(); };
+const opts = {responsive:true, plugins:{legend:{display:false}},
+  scales:{x:{grid:{display:false},ticks:{maxTicksLimit:8}},
+          y:{beginAtZero:true,ticks:{precision:0,maxTicksLimit:5}}}};
+for (const [app, d] of Object.entries(DATA)) {
+  const mk = (id, type, cd, color, fill) => {
+    const el = document.getElementById(id); if (!el) return;
+    if (!cd.labels.length || cd.values.every(v => v === 0)) return empty(el);
+    new Chart(el, {type, data:{labels:cd.labels, datasets:[{data:cd.values,
+      borderColor:color, backgroundColor:fill ?? color, borderWidth:2,
+      pointRadius:cd.values.length < 20 ? 4 : 0, borderRadius:4, tension:.3,
+      fill:type==='line'?{target:'origin',above:color+'22'}:false}]}, options:opts});
+  };
+  mk('d-'+app,'bar',d.downloads,css('--warn'),css('--warn')+'cc');
+  mk('g-'+app,'line',d.growth,css('--accent'));
+  mk('n-'+app,'bar',d.new,css('--accent'),css('--accent')+'cc');
+  mk('t-'+app,'bar',d.trial,css('--good'),css('--good')+'cc');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,617 @@
+{
+ "app": "parentlaw",
+ "generated": "2026-08-19T12:24:54.613364+00:00",
+ "market": "US",
+ "rankings": {
+  "co-parenting": {
+   "our_position": null,
+   "top": [
+    {
+     "pos": 1,
+     "name": "Co-parenting: Shared Parenting",
+     "bundle": "app.varannanvecka.parent",
+     "rating": 4.5,
+     "ratings": 30
+    },
+    {
+     "pos": 2,
+     "name": "TalkingParents: Co-Parent App",
+     "bundle": "com.talkingparents.iphoneapp",
+     "rating": 4.38586,
+     "ratings": 28754
+    },
+    {
+     "pos": 3,
+     "name": "OurFamilyWizard Co-Parent App",
+     "bundle": "com.ourfamilywizard.ofwapp",
+     "rating": 4.58094,
+     "ratings": 52064
+    },
+    {
+     "pos": 4,
+     "name": "AppClose",
+     "bundle": "com.appclose.appclose",
+     "rating": 4.73745,
+     "ratings": 38829
+    },
+    {
+     "pos": 5,
+     "name": "Widgetable: Besties & Couples",
+     "bundle": "com.widgetable.theme",
+     "rating": 4.91835,
+     "ratings": 381790
+    },
+    {
+     "pos": 6,
+     "name": "Atlántida Móvil Empresarial",
+     "bundle": "hn.bancatlan.atlantidamovilcorporativo",
+     "rating": 0,
+     "ratings": 0
+    },
+    {
+     "pos": 7,
+     "name": "Hando: Co-Parenting & Custody",
+     "bundle": "com.tapnetic.hando",
+     "rating": 0,
+     "ratings": 0
+    },
+    {
+     "pos": 8,
+     "name": "Our Days Co-Parenting Calendar",
+     "bundle": "com.ourdayscalendar.ios",
+     "rating": 4.65101,
+     "ratings": 149
+    }
+   ]
+  },
+  "custody tracker": {
+   "our_position": null,
+   "top": [
+    {
+     "pos": 1,
+     "name": "Kidtime Coparent Calendar Chat",
+     "bundle": "com.vmgmsoftware.kidtime",
+     "rating": 4.26234,
+     "ratings": 385
+    },
+    {
+     "pos": 2,
+     "name": "Alimentor 2: Custody Tracker",
+     "bundle": "org.alimentor.ParentLogMk03",
+     "rating": 4.84945,
+     "ratings": 1302
+    },
+    {
+     "pos": 3,
+     "name": "OurFamilyWizard Co-Parent App",
+     "bundle": "com.ourfamilywizard.ofwapp",
+     "rating": 4.58094,
+     "ratings": 52064
+    },
+    {
+     "pos": 4,
+     "name": "AppClose",
+     "bundle": "com.appclose.appclose",
+     "rating": 4.73745,
+     "ratings": 38829
+    },
+    {
+     "pos": 5,
+     "name": "Custody Journal",
+     "bundle": "com.captainlongevity.custodylog",
+     "rating": 5,
+     "ratings": 1
+    },
+    {
+     "pos": 6,
+     "name": "Our Days Co-Parenting Calendar",
+     "bundle": "com.ourdayscalendar.ios",
+     "rating": 4.65101,
+     "ratings": 149
+    },
+    {
+     "pos": 7,
+     "name": "TRT Haber",
+     "bundle": "com.TRT.TRTHaber",
+     "rating": 4,
+     "ratings": 8
+    },
+    {
+     "pos": 8,
+     "name": "TalkingParents: Co-Parent App",
+     "bundle": "com.talkingparents.iphoneapp",
+     "rating": 4.38586,
+     "ratings": 28754
+    }
+   ]
+  },
+  "parenting plan": {
+   "our_position": null,
+   "top": [
+    {
+     "pos": 1,
+     "name": "Our Days Co-Parenting Calendar",
+     "bundle": "com.ourdayscalendar.ios",
+     "rating": 4.65101,
+     "ratings": 149
+    },
+    {
+     "pos": 2,
+     "name": "AppClose",
+     "bundle": "com.appclose.appclose",
+     "rating": 4.73745,
+     "ratings": 38829
+    },
+    {
+     "pos": 3,
+     "name": "OurFamilyWizard Co-Parent App",
+     "bundle": "com.ourfamilywizard.ofwapp",
+     "rating": 4.58094,
+     "ratings": 52064
+    },
+    {
+     "pos": 4,
+     "name": "TalkingParents: Co-Parent App",
+     "bundle": "com.talkingparents.iphoneapp",
+     "rating": 4.38586,
+     "ratings": 28754
+    },
+    {
+     "pos": 5,
+     "name": "Good Inside: Parenting",
+     "bundle": "com.goodinside.gi-mobile",
+     "rating": 4.93262,
+     "ratings": 13433
+    },
+    {
+     "pos": 6,
+     "name": "Positive Parenting Solutions",
+     "bundle": "com.pponline.com",
+     "rating": 4.80741,
+     "ratings": 3614
+    },
+    {
+     "pos": 7,
+     "name": "The Happy Child-Parenting App",
+     "bundle": "com.hip.app",
+     "rating": 4.95554,
+     "ratings": 1822
+    },
+    {
+     "pos": 8,
+     "name": "PlayDate - Tools for Parents",
+     "bundle": "app.launchers.PlayDate",
+     "rating": 0,
+     "ratings": 0
+    }
+   ]
+  },
+  "child custody": {
+   "our_position": null,
+   "top": [
+    {
+     "pos": 1,
+     "name": "TalkingParents: Co-Parent App",
+     "bundle": "com.talkingparents.iphoneapp",
+     "rating": 4.38586,
+     "ratings": 28754
+    },
+    {
+     "pos": 2,
+     "name": "Alimentor 2: Custody Tracker",
+     "bundle": "org.alimentor.ParentLogMk03",
+     "rating": 4.84945,
+     "ratings": 1302
+    },
+    {
+     "pos": 3,
+     "name": "AppClose",
+     "bundle": "com.appclose.appclose",
+     "rating": 4.73745,
+     "ratings": 38829
+    },
+    {
+     "pos": 4,
+     "name": "Custody Journal",
+     "bundle": "com.captainlongevity.custodylog",
+     "rating": 5,
+     "ratings": 1
+    },
+    {
+     "pos": 5,
+     "name": "OurFamilyWizard Co-Parent App",
+     "bundle": "com.ourfamilywizard.ofwapp",
+     "rating": 4.58094,
+     "ratings": 52064
+    },
+    {
+     "pos": 6,
+     "name": "FCC APP",
+     "bundle": "com.familycourtcorner.app.FCCv2",
+     "rating": 3.33333,
+     "ratings": 3
+    },
+    {
+     "pos": 7,
+     "name": "Custody Guardian",
+     "bundle": "com.zerocloudapps.custodyguardian",
+     "rating": 0,
+     "ratings": 0
+    },
+    {
+     "pos": 8,
+     "name": "Parendar - Custody Calendar",
+     "bundle": "com.parendar.app",
+     "rating": 0,
+     "ratings": 0
+    }
+   ]
+  },
+  "divorced parents app": {
+   "our_position": null,
+   "top": [
+    {
+     "pos": 1,
+     "name": "OurFamilyWizard Co-Parent App",
+     "bundle": "com.ourfamilywizard.ofwapp",
+     "rating": 4.58094,
+     "ratings": 52064
+    },
+    {
+     "pos": 2,
+     "name": "Peaceful CoParenting Messenger",
+     "bundle": "gemini.com.tEXT-filter",
+     "rating": 4.26328,
+     "ratings": 414
+    },
+    {
+     "pos": 3,
+     "name": "TalkingParents: Co-Parent App",
+     "bundle": "com.talkingparents.iphoneapp",
+     "rating": 4.38586,
+     "ratings": 28754
+    },
+    {
+     "pos": 4,
+     "name": "AppClose",
+     "bundle": "com.appclose.appclose",
+     "rating": 4.73745,
+     "ratings": 38829
+    },
+    {
+     "pos": 5,
+     "name": "Single Parent Dating & Chat",
+     "bundle": "com.singleparent.app",
+     "rating": 4.30435,
+     "ratings": 92
+    },
+    {
+     "pos": 6,
+     "name": "Stir: Single Parent Dating App",
+     "bundle": "com.match.stir",
+     "rating": 4.26992,
+     "ratings": 57582
+    },
+    {
+     "pos": 7,
+     "name": "OkMeet - Divorced Dating",
+     "bundle": "com.okmeet.app",
+     "rating": 4.59128,
+     "ratings": 2843
+    },
+    {
+     "pos": 8,
+     "name": "coParenter - coParenting App",
+     "bundle": "com.coparenter.iosapp",
+     "rating": 3.50602,
+     "ratings": 166
+    }
+   ]
+  }
+ },
+ "invisible_searches": [
+  "co-parenting",
+  "custody tracker",
+  "parenting plan",
+  "child custody",
+  "divorced parents app"
+ ],
+ "competitors": [
+  {
+   "name": "Widgetable: Besties & Couples",
+   "bundle": "com.widgetable.theme",
+   "ratings": 381790,
+   "rating": 4.91835,
+   "price": "Free",
+   "title_pattern": "Widgetable: Besties & Couples",
+   "hook": "Widget Together, Share Whatever! Turn your lock and home screens into a vibrant space for love and connection! Our interactive widgets enable you to share life's moments with your besties and loved ones in a fun and enga"
+  },
+  {
+   "name": "Stir: Single Parent Dating App",
+   "bundle": "com.match.stir",
+   "ratings": 57582,
+   "rating": 4.26992,
+   "price": "Free",
+   "title_pattern": "Stir: Single Parent Dating App",
+   "hook": "As a single parent, you’ve tried other dating apps, but at the first mention of your kids, you’re no longer interesting. Sound familiar? \n\n\n\nThat’s why we created Stir, a dating app with a focus on single parents. \n\n\n\nIt"
+  },
+  {
+   "name": "OurFamilyWizard Co-Parent App",
+   "bundle": "com.ourfamilywizard.ofwapp",
+   "ratings": 52064,
+   "rating": 4.58094,
+   "price": "Free",
+   "title_pattern": "OurFamilyWizard Co-Parent App",
+   "hook": "OurFamilyWizard is the #1 co-parenting app trusted by courts and family law professionals across all 50 states in the US, as well as Canada, UK, Australia, and New Zealand. The app has been featured in the New York Times"
+  },
+  {
+   "name": "AppClose",
+   "bundle": "com.appclose.appclose",
+   "ratings": 38829,
+   "rating": 4.73745,
+   "price": "Free",
+   "title_pattern": "AppClose",
+   "hook": "AppClose is the world's most widely used and court-ordered co-parenting platform, trusted by parents and professionals and, based on user supplied data, court-ordered in every U.S. County, as well as Canada, UK, Ireland,"
+  },
+  {
+   "name": "TalkingParents: Co-Parent App",
+   "bundle": "com.talkingparents.iphoneapp",
+   "ratings": 28754,
+   "rating": 4.38586,
+   "price": "Free",
+   "title_pattern": "TalkingParents: Co-Parent App",
+   "hook": "Parents who are divorced, separated, or were never legally married use TalkingParents to manage all communication regarding their children. Whether your co-parenting situation is amicable or high conflict, our cutting-ed"
+  },
+  {
+   "name": "Good Inside: Parenting",
+   "bundle": "com.goodinside.gi-mobile",
+   "ratings": 13433,
+   "rating": 4.93262,
+   "price": "Free",
+   "title_pattern": "Good Inside: Parenting",
+   "hook": "Parenting can feel overwhelming, lonely, and impossible to prepare for. The Good Inside app gives you practical, compassionate support for the moments that matter most - from tantrums and bedtime battles to sibling fight"
+  },
+  {
+   "name": "Positive Parenting Solutions",
+   "bundle": "com.pponline.com",
+   "ratings": 3614,
+   "rating": 4.80741,
+   "price": "Free",
+   "title_pattern": "Positive Parenting Solutions",
+   "hook": "The 7-Step Parenting Success System Online Course Parenting-In-Your-Pocket ® mobile app is exclusively for enrollees in the 7-Step Parenting Success System online course from Positive Parenting Solutions.\n\nNot a member y"
+  },
+  {
+   "name": "OkMeet - Divorced Dating",
+   "bundle": "com.okmeet.app",
+   "ratings": 2843,
+   "rating": 4.59128,
+   "price": "Free",
+   "title_pattern": "OkMeet - Divorced Dating",
+   "hook": "OkMeet is a popular dating app for divorced or separated singles meet up with new peoples nearby, you can find and meet with local new friends who like to share their hot passion and love with you. We strive to create an"
+  },
+  {
+   "name": "The Happy Child-Parenting App",
+   "bundle": "com.hip.app",
+   "ratings": 1822,
+   "rating": 4.95554,
+   "price": "Free",
+   "title_pattern": "The Happy Child-Parenting App",
+   "hook": "The Happy Child grants you access to cutting-edge research and tips that will help you raise a happy, well-adjusted child. Years of ground-breaking research and findings have been curated into one easy-to-use app… for fr"
+  },
+  {
+   "name": "Alimentor 2: Custody Tracker",
+   "bundle": "org.alimentor.ParentLogMk03",
+   "ratings": 1302,
+   "rating": 4.84945,
+   "price": "$6.99",
+   "title_pattern": "Alimentor 2: Custody Tracker",
+   "hook": "Striving for fair co-parenting? Navigating a high-conflict custody case? Alimentor combines a dedicated custody calendar with an evidence-focused parenting journal, helping you stay organized and proactive. Manage your p"
+  }
+ ],
+ "vocabulary": {
+  "words": [
+   {
+    "w": "parenting",
+    "n": 97
+   },
+   {
+    "w": "parent",
+    "n": 46
+   },
+   {
+    "w": "parents",
+    "n": 36
+   },
+   {
+    "w": "time",
+    "n": 35
+   },
+   {
+    "w": "child",
+    "n": 31
+   },
+   {
+    "w": "terms",
+    "n": 27
+   },
+   {
+    "w": "messages",
+    "n": 27
+   },
+   {
+    "w": "com",
+    "n": 26
+   },
+   {
+    "w": "calendar",
+    "n": 25
+   },
+   {
+    "w": "share",
+    "n": 24
+   },
+   {
+    "w": "subscription",
+    "n": 24
+   },
+   {
+    "w": "about",
+    "n": 24
+   },
+   {
+    "w": "https",
+    "n": 23
+   },
+   {
+    "w": "court",
+    "n": 23
+   },
+   {
+    "w": "features",
+    "n": 22
+   },
+   {
+    "w": "privacy",
+    "n": 22
+   },
+   {
+    "w": "communication",
+    "n": 21
+   },
+   {
+    "w": "coparent",
+    "n": 21
+   },
+   {
+    "w": "schedule",
+    "n": 20
+   },
+   {
+    "w": "help",
+    "n": 20
+   },
+   {
+    "w": "custody",
+    "n": 20
+   },
+   {
+    "w": "keep",
+    "n": 19
+   },
+   {
+    "w": "account",
+    "n": 19
+   },
+   {
+    "w": "family",
+    "n": 19
+   },
+   {
+    "w": "support",
+    "n": 19
+   },
+   {
+    "w": "make",
+    "n": 18
+   },
+   {
+    "w": "coparenting",
+    "n": 18
+   },
+   {
+    "w": "other",
+    "n": 17
+   },
+   {
+    "w": "records",
+    "n": 17
+   },
+   {
+    "w": "houses",
+    "n": 17
+   }
+  ],
+  "phrases": [
+   {
+    "p": "privacy policy",
+    "n": 12
+   },
+   {
+    "p": "parenting time",
+    "n": 11
+   },
+   {
+    "p": "good inside",
+    "n": 10
+   },
+   {
+    "p": "end current",
+    "n": 6
+   },
+   {
+    "p": "current period",
+    "n": 6
+   },
+   {
+    "p": "policy https",
+    "n": 6
+   },
+   {
+    "p": "family law",
+    "n": 6
+   },
+   {
+    "p": "drop offs",
+    "n": 5
+   },
+   {
+    "p": "same page",
+    "n": 5
+   },
+   {
+    "p": "stay organized",
+    "n": 5
+   },
+   {
+    "p": "court admissible",
+    "n": 5
+   },
+   {
+    "p": "read about",
+    "n": 5
+   },
+   {
+    "p": "here https",
+    "n": 5
+   },
+   {
+    "p": "payment charged",
+    "n": 4
+   },
+   {
+    "p": "itunes account",
+    "n": 4
+   },
+   {
+    "p": "least hours",
+    "n": 4
+   },
+   {
+    "p": "account charged",
+    "n": 4
+   },
+   {
+    "p": "prior end",
+    "n": 4
+   },
+   {
+    "p": "turned off",
+    "n": 4
+   },
+   {
+    "p": "after purchase",
+    "n": 4
+   }
+  ]
+ }
+}

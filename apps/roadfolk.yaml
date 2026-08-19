@@ -1,0 +1,65 @@
+# Roadfolk — fabrika künyesi
+# `factory add` ile oluşturuldu. Boş alanları doldur; `factory needs roadfolk` ne
+# eksik olduğunu her zaman söyler.
+
+id: roadfolk
+name: Roadfolk
+status: idea                      # idea|build|soak|spark|scale|harvest|killed
+repo: 
+bundle_id: com.roadfolk.app
+
+market:
+  primary: US
+  languages: [en-US]
+  category: 
+  competitors: []
+  core_searches:
+
+
+store:
+  asc_app_id: "6790701369"
+  vendor_number: "93695706"       # takım geneli — aynı hesaptaki tüm uygulamalar
+  play_package: com.roadfolk.app
+  team_id: "97SGGCW829"
+
+backend:
+  api:                            # varsa kendi API'si
+  revenue_source: store           # store|backend_db
+
+analytics:
+  firebase_project:
+  required_events:
+    - onboarding_started
+    - onboarding_completed
+    - paywall_view
+    - trial_start
+    - purchase_completed
+  push:
+
+pricing:
+  model: subscription
+  trial_days: 7
+
+# --- KOTA VE KAPILAR — fabrikanın frenleri ------------------------------------
+budget:
+  daily_cap_usd: 50
+  spark_total_cap_usd: 2500       # tavan dolar + kıvılcım yoksa → otomatik KILL önerisi
+  scale_step_pct: 25
+
+gates:
+  soak:
+    crash_free_rate: 0.995
+    onboarding_completion: 0.60
+    paywall_view_rate: 0.70
+  spark:
+    trial_start_rate: 0.05
+    trial_to_paid: 0.35
+    d1_retention: 0.25
+    ltv_cac: 1.0
+  scale:
+    ltv_cac: 1.2
+    consecutive_weeks: 2
+
+min_sample:
+  installs: 100
+  trials: 20
