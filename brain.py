@@ -21,11 +21,25 @@ from datetime import date, timedelta
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from gates import load_env, q, yaml_lite, APPS_DIR  # noqa: E402
+from gates import load_env, q, yaml_lite, APPS_DIR, live_status  # noqa: E402
 
-PLAYBOOK = os.environ.get("FACTORY_PLAYBOOK") or os.path.join(
-    HERE, "..", "..", "factory", "playbooks", "core.md")
+PLAYBOOK = os.environ.get("FACTORY_PLAYBOOK") or os.path.join(HERE, "playbooks", "core.md")
 MODEL = os.environ.get("BRAIN_MODEL", "claude-opus-4-8")
+
+# Beyin uygulayıcı değil ama araç kutusunu BİLİR: önerdiği adım somut komut olur,
+# operatör (Claude oturumu) o komutu koşar. Araç eklenince bu listeyi güncelle.
+TOOLBOX = """FABRİKA ARAÇ KUTUSU (öneride bu komutları kullan):
+- Android sürüm: ship_play.py <app> <aab> --track internal → sonra --track production
+  --version-code N --notes f (droplet; son 'incelemeye gönder' düğmesi insanda).
+- iOS sürüm: ship_ios.py <app> build → upload → release <sürüm> --notes f --submit
+  (Mac; --submit incelemeye kadar gider, insan düğmesi yok). status = ASC durumu.
+- ASO taraması: aso_research.py <app> (haftalık cron'da; elle de koşulabilir).
+- Google ölçüm kurulumu: setup-google.py check|apply <app> (apply FACTORY_ADMIN_SA ister).
+- Kota kararı: gates.py (gecelik cron; karar factory.decisions'a düşer).
+- Veri boruları collect-*.py gecelik cron'da; 'veri yok' görürsen önce bunların
+  logunu önerme olarak göster.
+Metrik ipuçları: play_track_version/production = Play'e gönderilen versionCode;
+app_version_in_review|ios = ASC'de bekleyen sürüm; app_version_live|ios = canlı."""
 
 
 def snapshot(app_id):
@@ -62,6 +76,10 @@ KURALLAR:
 - Elinde olmayan veriyi varmış gibi konuşma; eksikse "ölçülemiyor" de.
 - Abartma ve övgü yok. Kötü haberi doğrudan söyle.
 - Kullanıcı istekleri varsa onlara açıkça değin.
+- Sıradaki adım araç kutusundaki bir işse, komutu AYNEN yaz (örn:
+  "ship_ios.py parentlaw release 1.6.0 --submit") — operatör onu koşacak.
+
+{toolbox}
 
 PLAYBOOK:
 {playbook}
@@ -124,12 +142,14 @@ def main():
         cfg = yaml_lite(os.path.join(APPS_DIR, f))
         if wanted and cfg["id"] not in wanted:
             continue
-        if cfg.get("status") in ("killed", "harvest"):
+        status = live_status(cfg["id"], cfg.get("status"))  # sahibi DB, künye yedek
+        if status in ("killed", "harvest"):
             continue
 
         snap = snapshot(cfg["id"])
         prompt = PROMPT.format(
-            playbook=playbook, name=cfg["name"], status=cfg.get("status"),
+            toolbox=TOOLBOX,
+            playbook=playbook, name=cfg["name"], status=status,
             stages="\n".join(snap["stages"]) or "(yayınlanmadı)",
             intake=", ".join(snap["intake_missing"]) or "yok",
             gate=snap["gate"][:400] or "(karar yok)",
