@@ -180,7 +180,33 @@ def play_reporting():
     notes.append(f"Play Reporting: {day_str} verisi alındı")
 
 
-for fn in (bigquery_funnel, play_reviews, play_reporting):
+# --- 4) Play track'leri: hangi versionCode nerede -----------------------------
+def play_tracks():
+    """production/internal'daki versionCode'u metriğe yaz — panel/beyin Android
+    sürüm cephesini görsün. NOT: track 'completed' = istenen durum; Google
+    incelemesinin bitip bitmediğini API söylemez."""
+    ed = gapi(SA, SCOPE_PLAY,
+              f"https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{PKG}/edits",
+              method="POST")
+    if "_err" in ed:
+        notes.append(f"Play tracks: edit açılamadı {ed['_err']}")
+        return
+    tr = gapi(SA, SCOPE_PLAY,
+              f"https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{PKG}"
+              f"/edits/{ed['id']}/tracks")
+    if "_err" in tr:
+        notes.append(f"Play tracks alınamadı: {tr['_err']}")
+        return
+    today = date.today().isoformat()
+    for t in tr.get("tracks", []):
+        for rel in t.get("releases", []):
+            if rel.get("status") == "completed" and rel.get("versionCodes"):
+                metrics.append((today, "play_track_version", t["track"],
+                                int(rel["versionCodes"][0])))
+    notes.append("Play tracks okundu")
+
+
+for fn in (bigquery_funnel, play_reviews, play_reporting, play_tracks):
     try:
         fn()
     except Exception as e:

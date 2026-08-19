@@ -56,7 +56,7 @@ def token(sa_path, scope):
     return r["access_token"]
 
 
-def gapi(sa_path, scope, url, body=None):
+def gapi(sa_path, scope, url, body=None, method=None):
     """Hata fırlatmaz — {'_err': kod, '_body': metin} döndürür.
     Toplayıcılar bir API kapalıyken de çalışmaya devam etmeli."""
     try:
@@ -67,7 +67,7 @@ def gapi(sa_path, scope, url, body=None):
         url, data=json.dumps(body).encode() if body else None,
         headers={"Authorization": f"Bearer {t}",
                  **({"Content-Type": "application/json"} if body else {})},
-        method="POST" if body else "GET")
+        method=method or ("POST" if body else "GET"))
     try:
         return json.load(urllib.request.urlopen(req, timeout=60))
     except urllib.error.HTTPError as e:
