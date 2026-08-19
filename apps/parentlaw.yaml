@@ -36,6 +36,10 @@ store:
   # İmzalama varlıkları — fabrika bunları üretir ve burada tutar.
   ios_cert_id: L7PC35KMK6
   ios_profile: ParentLaw AppStore Fabrika
+  # ASC API anahtarı (App Manager) — ship_ios.py + toplayıcılar bununla konuşur.
+  asc_key_id: K2KAAY89TK
+  asc_issuer_id: 6c13e5a2-8aa5-4a32-8e64-64f7663b7713
+  asc_key_path: ~/.parentlaw-signing/AuthKey_K2KAAY89TK.p8   # Mac; droplet'te /root/.asc/
 
 ads:
   meta_account_id: "1468315881700303"   # act_ oneki API cagrisinda eklenir
