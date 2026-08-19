@@ -180,6 +180,31 @@ class Handler(BaseHTTPRequestHandler):
             regenerate()
             return self._send(303, "", headers={"Location": f"/{TOKEN}/{app}.html#mesaj"})
 
+        if action == "creative":
+            # Kreatif kararı: onay/ret/revizyon. Ret ve revizyonda not ZORUNLU —
+            # o notlar brief üreticisine geri beslenen öğrenme verisidir.
+            cid = form.get("id", "")
+            verdict = form.get("verdict", "")
+            note = form.get("note", "").strip()
+            if not cid.isdigit() or verdict not in ("approved", "rejected", "revision_requested"):
+                return self._send(400, "geçersiz karar")
+            if verdict != "approved" and not note:
+                return self._send(400, "ret/revizyon için gerekçe zorunlu")
+            # idempotent: yalnız pending kayıt karar alır; olay logu da yalnız
+            # UPDATE gerçekten satır değiştirdiyse yazılır (ikinci tık tam no-op).
+            nval = "NULL" if not note else "'" + esc(note) + "'"
+            ok, err = psql(
+                f"WITH upd AS (UPDATE factory.creatives SET review_status='{verdict}', "
+                f"review_note={nval}, reviewed_at=now() "
+                f"WHERE id={int(cid)} AND app_id='{esc(app)}' "
+                "AND review_status='pending' RETURNING id) "
+                f"INSERT INTO factory.review_events (creative_id,action,note) "
+                f"SELECT id,'{verdict}',{nval} FROM upd;")
+            if not ok:
+                return self._send(500, f"kaydedilemedi: {err}")
+            regenerate()
+            return self._send(303, "", headers={"Location": f"/{TOKEN}/{app}.html#kreatif"})
+
         return self._send(404, "bilinmeyen işlem")
 
 

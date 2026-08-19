@@ -280,6 +280,50 @@ for app_row in apps:
         f'<button type="submit">Gönder</button></form>'
         f'<ul class="msgs">{msg_list}</ul>')
 
+    # --- kreatif onay kuyruğu ----------------------------------------------------
+    # Para harcayan hiçbir kreatif insansız yayına gitmez: pending → sen karar
+    # verirsin; ret/revizyon notların brief üreticisine geri beslenir.
+    crs = q(f"""SELECT id, brief_id, concept, format, file, hook, cta, review_status,
+                       coalesce(review_note,''), source_pattern, revision_count
+                FROM factory.creatives WHERE app_id='{aid}'
+                ORDER BY (review_status='pending') DESC, id DESC LIMIT 20""")
+    cr_pending = [c for c in crs if c[7] == "pending"]
+    cr_cards = []
+    for c in crs[:12]:
+        cid, brief, concept, fmt_, fname, hook, cta, rstat, rnote, srcpat, rev = c
+        badge = {"pending": ("bekliyor", "warn"), "approved": ("onaylı", "good"),
+                 "rejected": ("red", "bad"), "revision_requested": ("revizyon", "info"),
+                 "revising": ("revize ediliyor", "info")}.get(rstat, (rstat, "info"))
+        media = (f'<video src="creatives/{esc_html(fname)}" controls muted></video>'
+                 if fname.endswith((".mp4", ".mov")) else
+                 f'<img src="creatives/{esc_html(fname)}" alt="">')
+        decide = ""
+        if rstat == "pending":
+            decide = (
+                f'<form class="crform" method="post" action="/{TOKEN}/api/creative">'
+                f'<input type="hidden" name="app" value="{aid}">'
+                f'<input type="hidden" name="id" value="{cid}">'
+                f'<textarea name="note" rows="2" placeholder="ret/revizyon gerekçesi '
+                f'(onay için boş bırakılabilir)"></textarea>'
+                f'<div class="crbtns">'
+                f'<button name="verdict" value="approved" class="ok">Onayla</button>'
+                f'<button name="verdict" value="revision_requested">Revizyon</button>'
+                f'<button name="verdict" value="rejected" class="no">Reddet</button>'
+                f'</div></form>')
+        cr_cards.append(
+            f'<div class="creative"><div class="crmedia">{media}</div>'
+            f'<div class="crmeta"><b>{esc_html(hook)}</b>'
+            f'<span class="muted">{esc_html(brief)} · {esc_html(concept)} · '
+            f'{esc_html(fmt_)}{f" · rev{rev}" if rev else ""}</span>'
+            f'<span class="badge b-{badge[1]}">{badge[0]}</span>'
+            + (f'<span class="muted">kaynak: {esc_html(srcpat)}</span>' if srcpat else "")
+            + (f'<span class="muted">not: {esc_html(rnote)}</span>' if rnote else "")
+            + f'{decide}</div></div>')
+    creatives_html = ("".join(cr_cards) or
+                      '<p class="muted">Henüz kreatif üretilmedi. Üretim hattı fal.ai '
+                      '(görsel) + HeyGen (video) anahtarlarını bekliyor; brief\'ler '
+                      'intel dosyasında hazır.</p>')
+
     # --- kapı kararı (kota motoru) ---------------------------------------------
     gate = next((json.loads(g[1]) for g in gate_rows if g[0] == aid), None)
     if gate:
@@ -319,6 +363,7 @@ for app_row in apps:
         <button class="tab" data-t="hat">Boru hattı <i>{st_done}/{len(st_rows) or 9}</i></button>
         <button class="tab" data-t="kurulum">Kurulum <i>{in_done}/{len(in_rows) or 6}</i></button>
         <button class="tab" data-t="kota">Kota</button>
+        <button class="tab" data-t="kreatif">Kreatif{f' <i>{len(cr_pending)}</i>' if cr_pending else ''}</button>
         <button class="tab" data-t="istek">İstekler{f' <i>{len(open_msgs)}</i>' if open_msgs else ''}</button>
       </nav>
 
@@ -365,6 +410,12 @@ for app_row in apps:
         {gate_html}
         <h3 style="margin-top:18px">Kıvılcım eşikleri (SPARK kapısı)</h3>
         <table class="spark"><tr><th>Metrik</th><th>Mevcut</th><th>Hedef</th><th>Not</th></tr>{spark}</table>
+      </div>
+
+      <div class="panel" data-p="kreatif" id="kreatif">
+        <h3>Kreatif onay kuyruğu <span class="muted">{len(cr_pending)} bekliyor ·
+          ret/revizyon notların brief üreticisine geri beslenir</span></h3>
+        <div class="crgrid">{creatives_html}</div>
       </div>
 
       <div class="panel" data-p="istek">

@@ -613,5 +613,135 @@
     "n": 4
    }
   ]
+ },
+ "ads": {
+  "collected": "2026-08-20",
+  "source": "Meta Ad Library (web, US, aktif reklamlar) — elle tur, API ABD ticari reklamlarini vermiyor",
+  "competitors": {
+   "OurFamilyWizard": {
+    "active_ads": 130,
+    "winners": [
+     {
+      "hook": "Stay Organized, Calm & Connected",
+      "body": "Streamline your parenting schedule, shared expenses, and communication with the #1 court-recommended co-parenting app.",
+      "running_since": "2026-05-07",
+      "days_running": 105,
+      "format": "statik+video karisik, cok versiyon",
+      "signal": "3.5 aydir donuyor = EN GUCLU kazanan"
+     },
+     {
+      "hook": "Join 1M+ people",
+      "body": "court-admissible message logs / transparent scheduling / risk-free 30 days",
+      "running_since": "2026-07-29",
+      "format": "video 0:23",
+      "signal": "8 reklam ayni kreatifi kullaniyor"
+     },
+     {
+      "hook": "Manage schedules, messages & expenses in one secure app",
+      "running_since": "2026-07-29",
+      "format": "video 0:45",
+      "signal": "6 reklam ayni kreatifi kullaniyor"
+     },
+     {
+      "hook": "Five things you must advocate for with your divorce lawyer",
+      "angle": "avukat-tavsiyesi UGC; 'uygulamayi velayet kararina yazdir'; narsist/istismar kontrol acisi; ToneMeter; 'Judges love it'",
+      "format": "influencer video 2:09",
+      "signal": "UGC uzun anlatim + otorite"
+     }
+    ],
+    "recurring_claims": [
+     "#1 court-recommended",
+     "court-admissible",
+     "1M+ users",
+     "risk-free 30 days",
+     "time-stamped, uneditable"
+    ]
+   },
+   "TalkingParents": {
+    "active_ads": 29,
+    "winners": [
+     {
+      "hook": "My co-parent is... / Does your co-parent...",
+      "body": "High conflict co-parenting takes a toll. Protect your peace with recorded interactions.",
+      "format": "statik carousel, COK versiyon",
+      "signal": "bosluk-doldurmali merak kancasi; en cok test edilen"
+     },
+     {
+      "hook": "Finally Feel Peace While Co-Parenting",
+      "body": "Clear communication that helps you finally feel at peace.",
+      "format": "video 0:36-0:44",
+      "signal": "huzur/duygu acisi ana tema"
+     },
+     {
+      "hook": "Becoming a single mom has taught me...",
+      "angle": "UGC bekar anne, yumusak tavsiye",
+      "format": "influencer video 0:42"
+     },
+     {
+      "hook": "Hey single working parent!",
+      "angle": "dogrudan hitap + zaman kazanma",
+      "format": "video 0:37"
+     }
+    ],
+    "recurring_claims": [
+     "recorded interactions",
+     "protect your peace",
+     "reduce conflict",
+     "no drama"
+    ]
+   },
+   "AppClose": {
+    "active_ads": 0,
+    "signal": "Meta'da reklam SATIN ALMIYOR — buyume ucretsiz katmandan; reklam acik alani bize kaliyor"
+   }
+  },
+  "category_patterns": {
+   "dominant_angles": [
+    "mahkeme/otorite (court-recommended, admissible, judges)",
+    "huzur/duygu (protect your peace, finally feel peace)",
+    "yuksek-catisma/narsist eks kontrolu",
+    "UGC ebeveyn hikayesi"
+   ],
+   "video_length_sweet_spot": "23-45sn (UGC anlatim 2dk'ya kadar)",
+   "hooks_that_repeat": [
+    "bosluk doldurma (My co-parent is...)",
+    "sayi+otorite (1M+, #1)",
+    "dogrudan hitap (Hey single parent)",
+    "liste (Five things...)"
+   ],
+   "cta": [
+    "Learn More agirlikli",
+    "risk-free trial vurgusu"
+   ]
+  },
+  "parentlaw_briefs": [
+   {
+    "id": "A-court-proof",
+    "concept": "mahkeme kaniti",
+    "hook": "Said vs. proved. In court, only one matters.",
+    "body": "Every message, expense and exchange in ParentLaw is timestamped and impossible to edit. Export a court-ready record the moment your attorney asks.",
+    "cta": "Start your record",
+    "format": "statik 1:1 + 9:16",
+    "rationale": "OFW'nin en guclu acisi + bizim urun mihenk tasi; onlar $220-600/yil, biz $79"
+   },
+   {
+    "id": "B-peace",
+    "concept": "huzur",
+    "hook": "Co-parenting without the 3am argument replays.",
+    "body": "One place for schedules, expenses and messages — everything on the record, nothing to argue about.",
+    "cta": "Find your calm",
+    "format": "statik + 30sn video (HeyGen)",
+    "rationale": "TP'nin 'finally feel peace' kazananinin bizim fiyat avantajiyla birlesimi"
+   },
+   {
+    "id": "C-price-flip",
+    "concept": "fiyat devrimi",
+    "hook": "The #1 apps charge $220-600/year. Per parent.",
+    "body": "ParentLaw: $79/year covers BOTH parents. Same court-ready records, timestamped messages, shared expenses.",
+    "cta": "See the comparison",
+    "format": "statik karsilastirma tablosu",
+    "rationale": "paywall'da kanitlanmis rakip-fiyat tablosu reklama tasiniyor; AppClose reklam almadigindan ucuz-segment bos"
+   }
+  ]
  }
 }

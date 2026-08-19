@@ -110,6 +110,20 @@
   .qa button{margin:0;background:var(--surface2);color:var(--ink2);
     border:1px solid var(--border);font-weight:600;font-size:12.5px;padding:7px 13px}
   .qa button:hover{border-color:var(--accent);color:var(--accent);filter:none}
+  /* kreatif onay kuyruğu */
+  .crgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:12px}
+  .creative{background:var(--surface2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .crmedia img,.crmedia video{width:100%;display:block;max-height:340px;object-fit:contain;background:#0003}
+  .crmeta{padding:10px 12px;display:flex;flex-direction:column;gap:5px;font-size:13px}
+  .crmeta .badge{align-self:flex-start}
+  .badge.b-warn{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+  .badge.b-good{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+  .badge.b-bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+  .crform textarea{width:100%;margin-top:6px}
+  .crbtns{display:flex;gap:8px;margin-top:6px}
+  .crbtns button{flex:1;margin:0}
+  .crbtns .ok{background:var(--good);color:#fff}
+  .crbtns .no{background:var(--bad);color:#fff}
   .refresh{margin-left:auto}
   .mdone{display:inline;float:right;margin-top:-22px}
   .mdone button{margin:0;background:transparent;color:var(--ink3);border:1px solid var(--border);
