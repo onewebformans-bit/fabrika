@@ -5,7 +5,7 @@
 import json, os, subprocess, sys
 from datetime import date, timedelta
 from string import Template
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote
 
 # --- veri ---------------------------------------------------------------------
 def load_env(path="/root/.factory.env"):
@@ -324,6 +324,53 @@ for app_row in apps:
                       '(görsel) + HeyGen (video) anahtarlarını bekliyor; brief\'ler '
                       'intel dosyasında hazır.</p>')
 
+    # --- rakip reklam istihbaratı (intel/{app}.json ads bölümü) -------------------
+    # Medya indirilmez; her rakip için kazanan desenler + Ad Library canlı linki.
+    intel_html = ""
+    for idir in (os.environ.get("FACTORY_INTEL_DIR", ""),
+                 os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "intel"),
+                 "/opt/factory/intel"):
+        ipath = os.path.join(idir, f"{aid}.json") if idir else ""
+        if ipath and os.path.exists(ipath):
+            try:
+                ads = json.load(open(ipath)).get("ads") or {}
+            except Exception:
+                ads = {}
+            comp_cards = []
+            for cname, c in (ads.get("competitors") or {}).items():
+                lib = ("https://www.facebook.com/ads/library/?active_status=active&"
+                       "ad_type=all&country=US&q=%22" + quote(cname) +
+                       "%22&search_type=keyword_exact_phrase")
+                wins = "".join(
+                    f'<li><b>{esc_html(w.get("hook",""))}</b>'
+                    + (f' <span class="muted">{esc_html(w.get("body","")[:140])}</span>'
+                       if w.get("body") else "")
+                    + (f'<br><span class="muted">▸ {esc_html(w.get("signal",""))}'
+                       f'{" · " + esc_html(w.get("format","")) if w.get("format") else ""}'
+                       f'{" · " + str(w.get("days_running")) + " gündür yayında" if w.get("days_running") else ""}'
+                       '</span>' if (w.get("signal") or w.get("format")) else "")
+                    + '</li>'
+                    for w in (c.get("winners") or [])[:4])
+                comp_cards.append(
+                    f'<div class="intelcard"><h4>{esc_html(cname)} '
+                    f'<span class="muted">{c.get("active_ads", "?")} aktif reklam</span> '
+                    f'<a href="{lib}" target="_blank" rel="noopener">kütüphanede izle ↗</a></h4>'
+                    + (f'<ul class="winners">{wins}</ul>' if wins else
+                       f'<p class="muted">{esc_html(c.get("signal",""))}</p>')
+                    + '</div>')
+            if comp_cards:
+                pats = ads.get("category_patterns") or {}
+                pat_html = "".join(f'<li>{esc_html(p)}</li>'
+                                   for p in (pats.get("dominant_angles") or []))
+                intel_html = (
+                    f'<h3 style="margin-top:22px">Rakip kazanan reklamlar '
+                    f'<span class="muted">kaynak: Meta Ad Library · {esc_html(ads.get("collected",""))}'
+                    '</span></h3>'
+                    f'<div class="intelgrid">{"".join(comp_cards)}</div>'
+                    + (f'<h4 style="margin-top:12px">Kategorinin çalışan açıları</h4>'
+                       f'<ul class="winners">{pat_html}</ul>' if pat_html else ""))
+            break
+
     # --- kapı kararı (kota motoru) ---------------------------------------------
     gate = next((json.loads(g[1]) for g in gate_rows if g[0] == aid), None)
     if gate:
@@ -416,6 +463,7 @@ for app_row in apps:
         <h3>Kreatif onay kuyruğu <span class="muted">{len(cr_pending)} bekliyor ·
           ret/revizyon notların brief üreticisine geri beslenir</span></h3>
         <div class="crgrid">{creatives_html}</div>
+        {intel_html}
       </div>
 
       <div class="panel" data-p="istek">
