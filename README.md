@@ -5,7 +5,7 @@ fabrika ölçüm, mağaza, ASO, kreatif, reklam ve kota kararlarını yürütür
 Panel: https://fabrika.rixe.ai (gizli yol jetonlu).
 
 ```
-Uygulama sunucuları ──yaz──►  factory şeması (PG, droplet 157.230.191.204)
+Uygulama sunucuları ──yaz──►  factory şeması (PG, droplet 129.212.154.83)
   collect-*.py cron'ları        app_metrics_daily · app_status · app_inputs
                                       ▲                    │
 Ops host (164.90.179.52) ────oku──────┘                    ▼
@@ -33,7 +33,7 @@ intel çıktısı `FACTORY_INTEL_DIR` ya da `./intel` (gates.py tek kaynak).
 
 ## Sunucular
 
-- **Droplet 157.230.191.204** — factory PG + Caddy (fabrika.rixe.ai) + `factory-web`
+- **Droplet 129.212.154.83** — factory PG + Caddy (fabrika.rixe.ai) + `factory-web`
   + toplayıcı cron'ları. Env: `/root/.factory.env`, `/root/.meta.env`, `/root/.iconscout.env`.
 - **Ops host 164.90.179.52** — brain.py cron'u (Claude abonelik token'ı burada).
 

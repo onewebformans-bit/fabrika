@@ -47,7 +47,7 @@ ads:
 
 backend:
   api: https://parentlaw-api.rixe.ai
-  host: 157.230.191.204
+  host: 129.212.154.83
   # Gelir gerçeğinin kaynağı: mağaza-doğrulamalı kendi DB'miz.
   revenue_source: backend_db
 
