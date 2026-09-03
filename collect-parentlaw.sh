@@ -17,7 +17,7 @@ DAY="${1:-$(date -u -d 'yesterday' +%F)}"   # istenirse elle: ./collect-parentla
 
 # Yerel coparent DB'den tek sorguda metric,segment,value satırları üret.
 # docker compose servisi 'db', kullanıcı/db 'coparent' (docker-compose.yml).
-rows=$(cd "$APP_DIR" && docker compose exec -T db psql -U coparent -d coparent -At -F'|' <<SQL
+rows=$(cd "$APP_DIR" && docker exec -i coparent-pg psql -U postgres -d coparent -At -F'|' <<SQL
 WITH day AS (SELECT '$DAY'::date AS d)
 SELECT 'users_total','',count(*) FROM users
 UNION ALL

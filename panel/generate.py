@@ -38,7 +38,9 @@ gate_rows = q("""SELECT DISTINCT ON (app_id) app_id, payload::text
                  ORDER BY app_id, created_at DESC""")
 # Panelden girilen intake cevapları ve beyne yazılan istekler
 input_rows = q("SELECT app_id, key, value FROM factory.app_inputs")
-msg_rows = q("""SELECT app_id, direction, body, status, created_at::date::text, id::text
+# body'deki satır sonları psql -At çıktısında satırı böler → tek satıra indir
+msg_rows = q("""SELECT app_id, direction, regexp_replace(body, E'[\\n\\r\\t]+', ' ', 'g'),
+                       status, created_at::date::text, id::text
                 FROM factory.messages ORDER BY created_at DESC LIMIT 60""")
 
 # Panelin yazma ucu için gizli jeton (form action'ları buna gider)
